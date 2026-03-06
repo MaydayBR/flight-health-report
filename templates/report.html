@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flight Health Report</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 400px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        img {
+            width: 600px;
+            margin-bottom: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<h1>Flight Health Report</h1>
+
+<p><strong>Overall Score:</strong> {{ score }}</p>
+<p><strong>Overall Status:</strong> {{ overall_status }}</p>
+
+<h2>Metrics</h2>
+
+<table>
+    <tr>
+        <th>Metric</th>
+        <th>Value</th>
+    </tr>
+
+    <tr>
+        <td>Flight Duration (s)</td>
+        <td>{{ flight_duration_s }}</td>
+    </tr>
+
+    <tr>
+        <td>Minimum Battery (V)</td>
+        <td>{{ battery_min_v }}</td>
+    </tr>
+
+    <tr>
+        <td>Minimum GPS Satellites</td>
+        <td>{{ gps_min_sats }}</td>
+    </tr>
+
+    <tr>
+        <td>Average GPS Satellites</td>
+        <td>{{ gps_avg_sats }}</td>
+    </tr>
+
+    <tr>
+        <td>Maximum Vibration</td>
+        <td>{{ vibe_max }}</td>
+    </tr>
+
+    <tr>
+        <td>Mean Absolute Altitude Error</td>
+        <td>{{ altitude_error_mean_abs }}</td>
+    </tr>
+
+    <tr>
+        <td>Altitude Error Std</td>
+        <td>{{ altitude_error_std }}</td>
+    </tr>
+
+</table>
+
+<h2>Checks</h2>
+
+<ul>
+    <li>Battery Status: {{ battery_status }}</li>
+    <li>GPS Status: {{ gps_status }}</li>
+    <li>Vibration Status: {{ vibe_status }}</li>
+    <li>Altitude Stability Status: {{ altitude_status }}</li>
+</ul>
+
+<h2>Plots</h2>
+
+<img src="battery.png">
+<img src="gps.png">
+<img src="vibration.png">
+<img src="altitude.png">
+
+</body>
+</html>
