@@ -1,7 +1,11 @@
 venv/
+docs/
+data/
+reports/
+scripts/
 .history/
 __pycache__/
 *.pyc
 .DS_Store
 reports/*.html
-reports/*.png
+reports/*.pngdata/

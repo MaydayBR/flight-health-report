@@ -5,40 +5,58 @@
     # Was altitude control stable?
     # Overall, was this a healthy flight?
 
+import math
+
+
+def _nan_safe(fn, value, default_status="n/a", default_score=0):
+    """If value is NaN, return (default_status, default_score); else call fn(value)."""
+    if value is None or (isinstance(value, float) and math.isnan(value)):
+        return default_status, default_score
+    return fn(value)
+
+
 def evaluate_battery(battery_min_v):
-    if battery_min_v >= 15.2:
-        return "pass", 25
-    elif battery_min_v >= 14.8:
-        return "warn", 15
-    else:
+    def _eval(v):
+        if v >= 15.2:
+            return "pass", 25
+        elif v >= 14.8:
+            return "warn", 15
         return "fail", 0
+
+    return _nan_safe(_eval, battery_min_v)
 
 
 def evaluate_gps(gps_min_sats):
-    if gps_min_sats >= 10:
-        return "pass", 25
-    elif gps_min_sats >= 8:
-        return "warn", 15
-    else:
+    def _eval(v):
+        if v >= 10:
+            return "pass", 25
+        elif v >= 8:
+            return "warn", 15
         return "fail", 0
+
+    return _nan_safe(_eval, gps_min_sats)
 
 
 def evaluate_vibration(vibe_max):
-    if vibe_max < 20:
-        return "pass", 25
-    elif vibe_max < 30:
-        return "warn", 15
-    else:
+    def _eval(v):
+        if v < 20:
+            return "pass", 25
+        elif v < 30:
+            return "warn", 15
         return "fail", 0
+
+    return _nan_safe(_eval, vibe_max)
 
 
 def evaluate_altitude(altitude_error_std):
-    if altitude_error_std < 0.3:
-        return "pass", 25
-    elif altitude_error_std < 0.7:
-        return "warn", 15
-    else:
+    def _eval(v):
+        if v < 0.3:
+            return "pass", 25
+        elif v < 0.7:
+            return "warn", 15
         return "fail", 0
+
+    return _nan_safe(_eval, altitude_error_std)
 
 
 def get_overall_status(score):

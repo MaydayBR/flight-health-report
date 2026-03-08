@@ -52,23 +52,33 @@
     </tr>
 
     <tr>
+        <td>Max Altitude (m)</td>
+        <td>{{ altitude_max_m }}</td>
+    </tr>
+
+    <tr>
         <td>Minimum Battery (V)</td>
         <td>{{ battery_min_v }}</td>
     </tr>
 
     <tr>
-        <td>Minimum GPS Satellites</td>
+        <td>Number of Satellites (min)</td>
         <td>{{ gps_min_sats }}</td>
     </tr>
 
     <tr>
-        <td>Average GPS Satellites</td>
+        <td>Number of Satellites (avg)</td>
         <td>{{ gps_avg_sats }}</td>
     </tr>
 
     <tr>
         <td>Maximum Vibration</td>
         <td>{{ vibe_max }}</td>
+    </tr>
+
+    <tr>
+        <td>Mode Changes</td>
+        <td>{{ mode_changes }}</td>
     </tr>
 
     <tr>
@@ -94,10 +104,11 @@
 
 <h2>Plots</h2>
 
-<img src="battery.png">
-<img src="gps.png">
-<img src="vibration.png">
-<img src="altitude.png">
+<img src="altitude.png" alt="Altitude vs Time">
+<img src="battery.png" alt="Battery vs Time">
+<img src="roll_pitch.png" alt="Roll/Pitch vs Time">
+<img src="vibration.png" alt="Vibration vs Time">
+<img src="gps_path.png" alt="GPS Path">
 
 </body>
 </html>

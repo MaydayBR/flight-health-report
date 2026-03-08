@@ -10,16 +10,17 @@ from src.report import generate_html_report
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python -m src.main <input_csv_file>")
+        print("Usage: python -m src.main <input_bin_file>")
+        print("  input_bin_file: path to an ArduPilot DataFlash .bin log")
         sys.exit(1)
 
     input_file = sys.argv[1]
     output_dir = "reports"
     report_path = os.path.join(output_dir, "flight_report.html")
 
-    df = load_flight_data(input_file)
+    df, extras = load_flight_data(input_file)
 
-    metrics = compute_metrics(df)
+    metrics = compute_metrics(df, extras=extras)
 
     health_results = evaluate_health(metrics)
 

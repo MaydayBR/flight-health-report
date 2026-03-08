@@ -1,4 +1,14 @@
 import os
+import math
+
+
+def _format_value(v):
+    """Format a metric value for display; use 'N/A' for NaN or None."""
+    if v is None:
+        return "N/A"
+    if isinstance(v, float) and (math.isnan(v) or math.isinf(v)):
+        return "N/A"
+    return str(v)
 
 
 def generate_html_report(metrics, health_results, template_path, output_path):
@@ -6,16 +16,18 @@ def generate_html_report(metrics, health_results, template_path, output_path):
         html = file.read()
 
     replacements = {
-        "{{ score }}": str(health_results["overall_score"]),
+        "{{ score }}": _format_value(health_results["overall_score"]),
         "{{ overall_status }}": str(health_results["overall_status"]),
 
-        "{{ flight_duration_s }}": str(metrics["flight_duration_s"]),
-        "{{ battery_min_v }}": str(metrics["battery_min_v"]),
-        "{{ gps_min_sats }}": str(metrics["gps_min_sats"]),
-        "{{ gps_avg_sats }}": str(metrics["gps_avg_sats"]),
-        "{{ vibe_max }}": str(metrics["vibe_max"]),
-        "{{ altitude_error_mean_abs }}": str(metrics["altitude_error_mean_abs"]),
-        "{{ altitude_error_std }}": str(metrics["altitude_error_std"]),
+        "{{ flight_duration_s }}": _format_value(metrics["flight_duration_s"]),
+        "{{ altitude_max_m }}": _format_value(metrics.get("altitude_max_m")),
+        "{{ battery_min_v }}": _format_value(metrics["battery_min_v"]),
+        "{{ vibe_max }}": _format_value(metrics["vibe_max"]),
+        "{{ gps_min_sats }}": _format_value(metrics["gps_min_sats"]),
+        "{{ gps_avg_sats }}": _format_value(metrics["gps_avg_sats"]),
+        "{{ mode_changes }}": _format_value(metrics.get("mode_changes")),
+        "{{ altitude_error_mean_abs }}": _format_value(metrics["altitude_error_mean_abs"]),
+        "{{ altitude_error_std }}": _format_value(metrics["altitude_error_std"]),
 
         "{{ battery_status }}": str(health_results["battery_status"]),
         "{{ gps_status }}": str(health_results["gps_status"]),
